@@ -21,11 +21,11 @@
       
       
       <link rel="icon" href="../../asset/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
-        <title>4. Streaming - Vinagent</title>
+        <title>4. Streaming & Async Streaming - Vinagent</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4. Streaming
+              4. Streaming & Async Streaming
             
           </span>
         </div>
@@ -710,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    4. Streaming
+    4. Streaming & Async Streaming
   
 
     
@@ -728,7 +728,7 @@
   <span class="md-ellipsis">
     
   
-    4. Streaming
+    4. Streaming & Async Streaming
   
 
     
@@ -771,6 +771,17 @@
     <span class="md-ellipsis">
       
         Streaming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async Streaming
       
     </span>
   </a>
@@ -925,6 +936,8 @@
       
         
       
+        
+      
     
     
     
@@ -992,6 +1005,34 @@
     
   
     The Foundation of Responsible AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_agent_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Secure and Sanboxed System Operations Agent
   
 
     
@@ -1153,6 +1194,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1233,6 +1282,118 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/01_sequential_financial_analyst_crew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequential Financial Analyst Crew
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/02_active_trading_advisory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branching Active Trading Advisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/03_quantitative_alpha_generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Alpha Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/04_institutional_portfolio_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Institutional Portfolio Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1256,6 +1417,8 @@
   
     
     
+      
+        
       
         
       
@@ -1497,6 +1660,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#async-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async Streaming
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1590,7 +1764,7 @@
 
 
 <h1 id="streaming-agent">Streaming Agent<a class="headerlink" href="#streaming-agent" title="Permanent link">&para;</a></h1>
-<p><a href="https://colab.research.google.com/github/datascienceworld-kan/vinagent/blob/main/doc/docs/tutorials/get_started/streaming.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p><a href="https://colab.research.google.com/github/datascienceworld-kan/vinagent/blob/main/docs/docs/tutorials/get_started/streaming.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
 <h2 id="install-libraries">Install libraries<a class="headerlink" href="#install-libraries" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">vinagent</span>
 </span></code></pre></div>
@@ -1671,6 +1845,20 @@ To| find| the| current| weather| in| New| York|,| I| will| use| the| search|_api
 
 According to the search_api tool, the current weather in New York today is 72°F with mist. The wind is blowing at 6 mph from the west, and the humidity is relatively high at 94%.|
 </code></pre></div>
+<h2 id="async-streaming">Async Streaming<a class="headerlink" href="#async-streaming" title="Permanent link">&para;</a></h2>
+<p>Vinagent offer an <code>astream</code> method that is async version of <code>stream</code> to accelerate the speed of response. It is particularly useful for I/O bound tasks that needs waiting for data from external sources.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_agent</span><span class="p">():</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">agent</span><span class="o">.</span><span class="n">astream</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;Where is the capital of the Vietnam?&quot;</span><span class="p">):</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">content</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">content</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Final content:&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_agent</span><span class="p">())</span>
+</span></code></pre></div>
 
 
 

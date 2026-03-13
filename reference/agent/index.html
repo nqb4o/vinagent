@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../asset/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -442,6 +442,8 @@
       
         
       
+        
+      
     
     
     
@@ -679,6 +681,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label=" stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vinagent.agent.agent.Agent.stream--workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1021,6 +1040,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label=" stream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vinagent.agent.agent.Agent.stream--workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1132,7 +1168,7 @@
   &lt;/span&gt; (&lt;code&gt;vinagent.agent.agent.Agent.ainvoke&lt;/code&gt;)" href="#vinagent.agent.agent.Agent.ainvoke">ainvoke</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Answer the user query asynchronously with continuous tool calling capability.</p>
+                  
                 </div>
               </td>
             </tr>
@@ -1140,7 +1176,7 @@
               <td><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;invoke&lt;/span&gt; (&lt;code&gt;vinagent.agent.agent.Agent.invoke&lt;/code&gt;)" href="#vinagent.agent.agent.Agent.invoke">invoke</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Answer the user query synchronously with continuous tool calling capability.</p>
+                  
                 </div>
               </td>
             </tr>
@@ -1148,7 +1184,7 @@
               <td><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;stream&lt;/span&gt; (&lt;code&gt;vinagent.agent.agent.Agent.stream&lt;/code&gt;)" href="#vinagent.agent.agent.Agent.stream">stream</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Answer the user query by streaming with continuous tool calling capability. Yields streamed responses or the final tool execution result.</p>
+                  <p>Stream the agent response token-by-token with continuous tool-calling</p>
                 </div>
               </td>
             </tr>
@@ -1164,7 +1200,7 @@
               <td><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;register_tools&lt;/span&gt; (&lt;code&gt;vinagent.agent.agent.Agent.register_tools&lt;/code&gt;)" href="#vinagent.agent.agent.Agent.register_tools">register_tools</a></code></td>
               <td>
                 <div class="doc-md-description">
-                  <p>Register a list of tools</p>
+                  <p>Register a list of tools.</p>
                 </div>
               </td>
             </tr>
@@ -1199,204 +1235,10 @@
   </span>
 
 <a href="#vinagent.agent.agent.Agent.ainvoke" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">ainvoke</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">is_save_memory</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;unknown_user&#39;</span><span class="p">,</span> <span class="n">max_iterations</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">is_tool_formatted</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">max_history</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Any">Any</span></span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">ainvoke</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">is_save_memory</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;unknown_user&#39;</span><span class="p">,</span> <span class="n">max_iterations</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">is_tool_formatted</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">max_history</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Awaitable">Awaitable</span></span><span class="p">[</span><span class="n"><span title="typing.Any">Any</span></span><span class="p">]</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
-
-        <p>Answer the user query asynchronously with continuous tool calling capability.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>query</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The input query or task description provided by the user.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>is_save_memory</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Flag to determine if the conversation should be saved to memory. Defaults to False.</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Identifier for the user making the request. Defaults to "unknown_user".</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;unknown_user&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>max_iterations</code>
-            </td>
-            <td>
-                  <code><span title="int">int</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Maximum number of tool call iterations to prevent infinite loops. Defaults to 10.</p>
-              </div>
-            </td>
-            <td>
-                  <code>10</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>is_tool_formatted</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Modifying the output Tool to become more human-preferred. If True, it needs one next llm invoke to format answer, else directly return tool_message. Defaults to True.</p>
-              </div>
-            </td>
-            <td>
-                  <code>True</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>max_history</code>
-            </td>
-            <td>
-                  <code>(<span title="int">int</span>, None)</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Number of maximum history messages. Defaults to None.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>**kwargs</code>
-            </td>
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Additional keyword arguments, including an optional <code>config</code> dictionary for graph execution.</p>
-              </div>
-            </td>
-            <td>
-                  <code>{}</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>Any</code></td>            <td>
-                  <code><span title="typing.Any">Any</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The result of the tool execution, LLM response, or None if an error occurs during tool execution.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="json.JSONDecodeError">JSONDecodeError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the tool data cannot be parsed as valid JSON.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="KeyError">KeyError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If required keys are missing in the tool data.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="ValueError">ValueError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the tool data is invalid or cannot be processed.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
 
 
     </div>
@@ -1416,200 +1258,6 @@
 
     <div class="doc doc-contents ">
 
-        <p>Answer the user query synchronously with continuous tool calling capability.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>query</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The input query or task description provided by the user.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>is_save_memory</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Flag to determine if the conversation should be saved to memory. Defaults to False.</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Identifier for the user making the request. Defaults to "unknown_user".</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;unknown_user&#39;</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>max_iterations</code>
-            </td>
-            <td>
-                  <code><span title="int">int</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Maximum number of tool call iterations to prevent infinite loops. Defaults to 10.</p>
-              </div>
-            </td>
-            <td>
-                  <code>10</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>is_tool_formatted</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Modifying the output Tool to become more human-preferred. If True, it needs one next llm invoke to format answer, else directly return tool_message. Defaults to True.</p>
-              </div>
-            </td>
-            <td>
-                  <code>True</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>max_history</code>
-            </td>
-            <td>
-                  <code><span title="int">int</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The maximum number of messages. Defaults to None.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>**kwargs</code>
-            </td>
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Additional keyword arguments, including an optional <code>config</code> dictionary for graph execution.</p>
-              </div>
-            </td>
-            <td>
-                  <code>{}</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>Any</code></td>            <td>
-                  <code><span title="typing.Any">Any</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The result of the tool execution, LLM response, or None if an error occurs during tool execution.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="json.JSONDecodeError">JSONDecodeError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the tool data cannot be parsed as valid JSON.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="KeyError">KeyError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If required keys are missing in the tool data.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="ValueError">ValueError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the tool data is invalid or cannot be processed.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
 
     </div>
 
@@ -1623,12 +1271,25 @@
 
 
 <a href="#vinagent.agent.agent.Agent.stream" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">stream</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">is_save_memory</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;unknown_user&#39;</span><span class="p">,</span> <span class="n">max_iterations</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">is_tool_formatted</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">max_history</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.AsyncGenerator">AsyncGenerator</span></span><span class="p">[</span><span class="n"><span title="typing.Any">Any</span></span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">stream</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n">is_save_memory</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s1">&#39;unknown_user&#39;</span><span class="p">,</span> <span class="n">max_iterations</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">is_tool_formatted</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">max_history</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing.Generator">Generator</span></span><span class="p">[</span><span class="n"><span title="typing.Any">Any</span></span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Answer the user query by streaming with continuous tool calling capability. Yields streamed responses or the final tool execution result.</p>
+        <p>Stream the agent response token-by-token with continuous tool-calling
+capability.  Follows the same 3-step loop as :meth:<code>invoke</code> but yields
+<code>AIMessageChunk</code> objects so the caller can push tokens to a live
+connection (WebSocket, SSE, etc.) as soon as they arrive.</p>
+<h5 id="vinagent.agent.agent.Agent.stream--workflow">Workflow<a class="headerlink" href="#vinagent.agent.agent.Agent.stream--workflow" title="Permanent link">&para;</a></h5>
+<ol>
+<li><strong>Step 1</strong> – Call the LLM with structured output to determine
+   whether a tool is needed (<code>AgentResponse</code>).</li>
+<li>If <em>no tool needed</em>: stream the direct answer token-by-token
+     and return.</li>
+<li><strong>Step 2</strong> – Execute the tool synchronously (same as <code>invoke</code>).</li>
+<li><strong>Step 3</strong> – After all tool iterations, stream the final LLM
+   summary token-by-token.</li>
+</ol>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1651,7 +1312,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The input query or task description provided by the user.</p>
+                <p>User query.</p>
               </div>
             </td>
             <td>
@@ -1667,7 +1328,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Flag to determine if the conversation should be saved to memory. Defaults to False.</p>
+                <p>Save conversation to long-term memory.</p>
               </div>
             </td>
             <td>
@@ -1683,7 +1344,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Identifier for the user making the request. Defaults to "unknown_user".</p>
+                <p>Identifier for the current user.</p>
               </div>
             </td>
             <td>
@@ -1699,7 +1360,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Maximum number of tool call iterations to prevent infinite loops. Defaults to 10.</p>
+                <p>Maximum tool-calling iterations.</p>
               </div>
             </td>
             <td>
@@ -1715,7 +1376,8 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Modifying the output Tool to become more human-preferred. If True, it needs one next llm invoke to format answer, else directly return tool_message. Defaults to True.</p>
+                <p>If True, streams a final LLM summary
+after tool execution; if False, yields the raw ToolMessage.</p>
               </div>
             </td>
             <td>
@@ -1731,7 +1393,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Number of last messages in the history. Defaults to None.</p>
+                <p>Number of history messages to include.</p>
               </div>
             </td>
             <td>
@@ -1746,7 +1408,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Additional keyword arguments, including an optional <code>config</code> dictionary for graph execution.</p>
+                <p>Forwarded to the compiled-graph path when applicable.</p>
               </div>
             </td>
             <td>
@@ -1757,30 +1419,7 @@
     </table>
 
 
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>Any</code></td>            <td>
-                  <code><span title="typing.AsyncGenerator">AsyncGenerator</span>[<span title="typing.Any">Any</span>, None]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The result of the tool execution, LLM response, or None if an error occurs during tool execution.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
+    <p><span class="doc-section-title">Yields:</span></p>
     <table>
       <thead>
         <tr>
@@ -1791,31 +1430,21 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="json.JSONDecodeError">JSONDecodeError</span></code>
+                  <code><span title="typing.Any">Any</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>If the tool data cannot be parsed as valid JSON.</p>
+                <p>AIMessageChunk | AIMessage | ToolMessage: Streamed LLM tokens</p>
               </div>
             </td>
           </tr>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="KeyError">KeyError</span></code>
+                  <code><span title="typing.Any">Any</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>If required keys are missing in the tool data.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="ValueError">ValueError</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>If the tool data is invalid or cannot be processed.</p>
+                <p>or the final tool/LLM message.</p>
               </div>
             </td>
           </tr>
@@ -1860,7 +1489,12 @@
 
     <div class="doc doc-contents ">
 
-        <p>Register a list of tools</p>
+        <p>Register a list of tools.</p>
+<p>Automatically detects whether each entry is an AgentSkill directory
+(contains a <code>SKILL.md</code> file) and routes it to
+:meth:<code>~vinagent.register.tool.ToolManager.register_agentskill_tool</code>.
+All other paths are treated as regular Python modules and forwarded to
+:meth:<code>~vinagent.register.tool.ToolManager.register_module_tool</code>.</p>
 
 
     </div>

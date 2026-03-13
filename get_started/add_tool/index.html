@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../asset/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -816,7 +816,7 @@
   <span class="md-ellipsis">
     
   
-    4. Streaming
+    4. Streaming & Async Streaming
   
 
     
@@ -969,6 +969,8 @@
       
         
       
+        
+      
     
     
     
@@ -1036,6 +1038,34 @@
     
   
     The Foundation of Responsible AI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bash_agent_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Secure and Sanboxed System Operations Agent
   
 
     
@@ -1197,6 +1227,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1277,6 +1315,118 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/01_sequential_financial_analyst_crew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequential Financial Analyst Crew
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/02_active_trading_advisory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branching Active Trading Advisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/03_quantitative_alpha_generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quantitative Alpha Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/04_institutional_portfolio_management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Institutional Portfolio Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1300,6 +1450,8 @@
   
     
     
+      
+        
       
         
       
@@ -1757,13 +1909,12 @@ INFO:vinagent.register.tool:Completed registration for module vinagent.tools.hel
 <div class="language-text highlight"><pre><span></span><code>Hello my friend, I&#39;m vinagent, an AI smart assistant. I come here to help you 😄!
 </code></pre></div>
 <h2 id="function-tool">Function Tool<a class="headerlink" href="#function-tool" title="Permanent link">&para;</a></h2>
-<p>In the following sections, let's explore how to register each type of tools in <code>vinagent</code> library. First, let's see how to register a function tool. You can customize any function in your runtime code as a powerful tool by using the <code>@function_tool</code> decorator.</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vinagent.register.tool</span><span class="w"> </span><span class="kn">import</span> <span class="n">function_tool</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nd">@agent</span><span class="o">.</span><span class="n">function_tool</span> <span class="c1"># Note: agent must be initialized first</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">sum_of_series</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]):</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Sum of list is </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<p>In the following sections, let's explore how to register each type of tools in <code>vinagent</code> library. First, let's see how to register a function tool. You can customize any function in your runtime code as a powerful tool by using the <code>@agent.tools_manager.register_function_tool</code> decorator.</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nd">@agent</span><span class="o">.</span><span class="n">tools_manager</span><span class="o">.</span><span class="n">register_function_tool</span> <span class="c1"># Note: agent must be initialized first</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">sum_of_series</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]):</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Sum of list is </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
 </span></code></pre></div>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>INFO:root:Registered tool: sum_of_series (runtime)
 </span></code></pre></div></p>
