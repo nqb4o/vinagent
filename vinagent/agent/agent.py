@@ -670,6 +670,7 @@ class Agent(AgentMeta):
                 history=self.in_conversation_history,
             )
 
+            logger.info(f"Response: {response}")
             # Early exit: direct answer with no tool needed
             if not getattr(response, "requires_tool", False) and getattr(
                 response, "answer", None

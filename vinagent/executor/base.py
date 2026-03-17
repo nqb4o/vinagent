@@ -15,15 +15,16 @@ class AgentResponse(BaseModel):
     requires_tool: bool = Field(
         default=None,
         description=(
-            "Set True if a tool is needed. "
-            "IMPORTANT: If requires_tool=True, you MUST populate tool_call with a valid ToolCall object. "
-            "Returning requires_tool=True with tool_call=None is INVALID."
+            "Whether we need to call a tool."
+            "If True: The answer need to call a tool -> populate tool_call"
+            "If False: The answer is the final answer -> directly answer in answer field"
+            "IMPORTANT: tool_call with a valid ToolCall object. answer is not a tool JSON definition."
         ),
     )
     answer: Optional[str] = Field(
-        default="Sorry I can not answer this question",
+        default=None,
         description=(
-            "Directly provide the final answer when requires_tool=False."
+            "Directly provide the final answer."
             "This field is used for conversational responses that do not require a tool."
             "Do not return any tool JSON definition like."
             "{'tool_name': <tool_name>,''tool_type': <tool_type>,...}"
@@ -178,7 +179,7 @@ class MessageHandler(PromptHandler):
         history.add_message(synthetic_ai_msg)
         history.add_message(fix_msg)
 
-        return fix_msg, history
+        return fix_msg
 
     def _set_tool_metadata(self, response: AgentResponse, tools_manager: ToolManager):
         if response.requires_tool and response.tool_call:
@@ -277,7 +278,7 @@ class MessageHandler(PromptHandler):
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",
@@ -302,9 +303,13 @@ class MessageHandler(PromptHandler):
         return _history
 
     def _handle_fix_bug_command(
-        self, fix_cmd: str, query: str, response: AgentResponse
+        self,
+        fix_cmd: str,
+        query: str,
+        response: AgentResponse,
+        history: InConversationHistory,
     ):
-        fix_msg = self._run_fix_bug_command(fix_cmd=fix_cmd)
+        fix_msg = self._run_fix_bug_command(fix_cmd=fix_cmd, history=history)
         if not getattr(response, "requires_tool", False) or not getattr(
             response, "tool_call", None
         ):
@@ -337,7 +342,7 @@ class InvokeExecutorBase(ABC):
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",
@@ -419,7 +424,7 @@ class StreamInvokeExecutorBase(ABC):
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",
@@ -470,7 +475,7 @@ class AsyncStreamInvokeExecutorBase(ABC):
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",

@@ -63,7 +63,7 @@ class StreamInvokeExecutor(StreamInvokeExecutorBase, MessageHandler, PromptHandl
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",
@@ -109,7 +109,7 @@ class StreamInvokeExecutor(StreamInvokeExecutorBase, MessageHandler, PromptHandl
         fix_cmd = getattr(response, "fix_bug_command", None)
         if fix_cmd:
             next_query, fix_msg, should_continue = self._handle_fix_bug_command(
-                fix_cmd=fix_cmd, query=current_query, response=response
+                fix_cmd=fix_cmd, query=current_query, response=response, history=history
             )
             return next_query, fix_msg, should_continue
 
@@ -146,10 +146,26 @@ class StreamInvokeExecutor(StreamInvokeExecutorBase, MessageHandler, PromptHandl
 
         # --- 2e. Adapt AIMessage to carry tool_calls metadata ---
         content_val = response.answer if getattr(response, "answer", None) else ""
-        ai_message = adapter_ai_response_with_tool_calls(
-            tools_manager.load_tools(), AIMessage(content=content_val), tool_data
-        )
-        history.add_message(ai_message)
+        try:
+            ai_message = adapter_ai_response_with_tool_calls(
+                tools_manager.load_tools(), AIMessage(content=content_val), tool_data
+            )
+            history.add_message(ai_message)
+
+        except ValueError as e:
+            logger.warning(str(e))
+            # The agent hallucinated a tool. Don't crash, feed the error back.
+            history.add_message(AIMessage(content=content_val))
+            error_msg = ToolMessage(
+                content=str(e),
+                tool_call_id=tool_data.get("tool_call_id", "unknown"),
+                additional_kwargs={"is_error": True},
+            )
+            history.add_message(error_msg)
+            _history = history.get_history()
+            next_query = self.prompt_tool(current_query, tool_data, error_msg, _history)
+            yield next_query, error_msg, True
+            return
 
         # --- 2f. Execute tool ---
         if is_valid_tool_permission:

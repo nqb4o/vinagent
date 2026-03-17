@@ -63,7 +63,7 @@ class AsyncInvokeExecutor(AsyncInvokeExecutorBase, MessageHandler, PromptHandler
         user_id: str = "unknown_user",
         message: str = "",
         tools_manager: ToolManager = None,
-        memory: str = "",
+        memory: Memory = None,
         skills: list = [],
         description: str = "",
         instruction: str = "",
@@ -107,7 +107,7 @@ class AsyncInvokeExecutor(AsyncInvokeExecutorBase, MessageHandler, PromptHandler
         fix_cmd = getattr(response, "fix_bug_command", None)
         if fix_cmd:
             next_query, fix_msg, should_continue = self._handle_fix_bug_command(
-                fix_cmd=fix_cmd, query=current_query, response=response
+                fix_cmd=fix_cmd, query=current_query, response=response, history=history
             )
             return next_query, fix_msg, should_continue
 
@@ -132,7 +132,6 @@ class AsyncInvokeExecutor(AsyncInvokeExecutorBase, MessageHandler, PromptHandler
             )
 
         # --- 2d. Check tool guardrail permission ---
-        logger.info(f"Executing async tool call: {tool_data}")
         try:
             is_valid_tool_permission = self.guardrail_executor.check_tool_guardrail(
                 llm=self.llm,
@@ -144,13 +143,29 @@ class AsyncInvokeExecutor(AsyncInvokeExecutorBase, MessageHandler, PromptHandler
 
         # --- 2e. Adapt AIMessage to carry tool_calls metadata ---
         content_val = response.answer if getattr(response, "answer", None) else ""
-        ai_message = adapter_ai_response_with_tool_calls(
-            tools_manager.load_tools(), AIMessage(content=content_val), tool_data
-        )
-        history.add_message(ai_message)
+        try:
+            ai_message = adapter_ai_response_with_tool_calls(
+                tools_manager.load_tools(), AIMessage(content=content_val), tool_data
+            )
+            history.add_message(ai_message)
+
+        except ValueError as e:
+            logger.warning(str(e))
+            # The agent hallucinated a tool. Don't crash, feed the error back.
+            history.add_message(AIMessage(content=content_val))
+            error_msg = ToolMessage(
+                content=str(e),
+                tool_call_id=tool_data.get("tool_call_id", "unknown"),
+                additional_kwargs={"is_error": True},
+            )
+            history.add_message(error_msg)
+            _history = history.get_history()
+            next_query = self.prompt_tool(current_query, tool_data, error_msg, _history)
+            return next_query, error_msg, True
 
         # --- 2f. Execute tool asynchronously ---
         if is_valid_tool_permission:
+            logger.info(f"Executing async tool call: {tool_data}")
             tool_message = (
                 await tools_manager._execute_tool(  # ← only difference from sync
                     tool_name=tool_data["tool_name"],
@@ -201,9 +216,9 @@ class AsyncInvokeExecutor(AsyncInvokeExecutorBase, MessageHandler, PromptHandler
                     content=f"Based on the previous tool executions, please provide a final response to: {query}"
                 )
             )
-            history = history.get_history(max_history=max_history)
+            _history = history.get_history(max_history=max_history)
             final_message = await self.llm.ainvoke(
-                history
+                _history
             )  # ← only difference from sync
             history.add_message(final_message)
         else:

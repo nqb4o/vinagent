@@ -6,7 +6,11 @@ from langchain_core.messages import (
     HumanMessage,
     BaseMessage,
 )
+from vinagent.memory import Memory
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class PromptHandler:
@@ -30,15 +34,20 @@ class PromptHandler:
         user_id: str,
         message: str,
         tools: dict,
-        memory: str = "",
+        memory: Memory,
     ) -> str:
+        if memory:
+            memory_content = memory.load_memory_by_user(
+                load_type="string", user_id=user_id
+            )
+        logger.info(f"Available Tools: {tools}")
         prompt = f"""You are a smart assistant that can answer questions and use tools to complete tasks.
-
+        
 ## User
 {user_id}
 
 ## Memory
-{memory.replace("I ", f"{user_id} ") if memory else "No memory available."}
+{memory_content.replace("I ", f"{user_id} ") if memory_content else "No memory available."}
 
 ## Task
 {message}
@@ -80,7 +89,7 @@ The `command` value depends on `tool_type`:
 | `mcp` | The MCP action string as specified by that tool |
 
 ### Rules
-- Never make up tool names, module paths, or arguments not present in the tool definitions.
+- Never make up tool names, module paths, or arguments not present in the Available Tools.
 - Never mix syntax from one tool into another.
 - If you are unsure which tool to use, answer directly and suggest where the user might find help.
 - Do not add explanation or commentary when outputting a tool call — output JSON only.
