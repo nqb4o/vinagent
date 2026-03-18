@@ -36,6 +36,7 @@ class PromptHandler:
         tools: dict,
         memory: Memory,
     ) -> str:
+        memory_content = ""
         if memory:
             memory_content = memory.load_memory_by_user(
                 load_type="string", user_id=user_id
@@ -160,8 +161,16 @@ The `command` value depends on `tool_type`:
         # Include BOTH the summary content AND the full artifact (STDERR traceback)
         # so the LLM has the complete picture to generate a comprehensive fix.
         content_value = tool_message.content or ""
-        artifact_value = getattr(tool_message, "artifact", None) or ""
-        if artifact_value and artifact_value != content_value:
+        artifact_value = getattr(tool_message, "artifact", None)
+
+        import pandas as pd     
+        if isinstance(artifact_value, pd.DataFrame):
+            artifact_value = artifact_value.to_string()
+        else:
+            artifact_value = artifact_value or ""
+
+        # Now it is safe to compare
+        if artifact_value != "" and artifact_value != content_value:
             full_result = f"{content_value}\n\nFull output:\n{artifact_value}"
         else:
             full_result = content_value or artifact_value
