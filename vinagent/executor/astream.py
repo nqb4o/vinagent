@@ -1,5 +1,6 @@
 from typing import Union, AsyncGenerator
 import asyncio
+import uuid
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_together import ChatTogether
 from langchain_core.language_models.base import BaseLanguageModel
@@ -169,10 +170,25 @@ class AsyncStreamInvokeExecutor(
             is_valid_tool_permission = False
 
         # --- 2e. Wrap AIMessage with tool_calls metadata ---
+        # Generate a fresh ID per invocation so AIMessage and ToolMessage
+        # always share the same tool_call_id, regardless of the static
+        # registry UUID or any LLM-generated ID.
+        _all_tools = tools_manager.load_tools()
+        # Patch tool_data with the authoritative registry tool_call_id so
+        # tool_data is always consistent before it flows into the adapter.
+        _registry_id = _all_tools.get(tool_data.get("tool_name", ""), {}).get(
+            "tool_call_id"
+        )
+        if _registry_id:
+            tool_data["tool_call_id"] = _registry_id
+        invocation_id = tool_data.get("tool_call_id") or "tool_" + str(uuid.uuid4())
         content_val = response.answer if getattr(response, "answer", None) else ""
         try:
             ai_message = adapter_ai_response_with_tool_calls(
-                tools_manager.load_tools(), AIMessage(content=content_val), tool_data
+                tools_manager.load_tools(),
+                AIMessage(content=content_val),
+                tool_data,
+                tool_call_id=invocation_id,
             )
             history.add_message(ai_message)
 
@@ -182,7 +198,7 @@ class AsyncStreamInvokeExecutor(
             history.add_message(AIMessage(content=content_val))
             error_msg = ToolMessage(
                 content=str(e),
-                tool_call_id=tool_data.get("tool_call_id", "unknown"),
+                tool_call_id=invocation_id,
                 additional_kwargs={"is_error": True},
             )
             history.add_message(error_msg)
@@ -204,13 +220,17 @@ class AsyncStreamInvokeExecutor(
                 tool_message = ToolMessage(
                     content="Tool execution success without artifact",
                     additional_kwargs={"is_error": False},
-                    tool_call_id=ai_message.tool_calls[0].get("id"),
+                    tool_call_id=invocation_id,
                 )
+            else:
+                # Override the static registry ID with the per-invocation ID
+                # so it always matches ai_message.tool_calls[0]['id'].
+                tool_message.tool_call_id = invocation_id
         else:
             tool_message = ToolMessage(
                 content="Tool is not permitted by security rules.",
                 additional_kwargs={"is_error": True},
-                tool_call_id=ai_message.tool_calls[0].get("id"),
+                tool_call_id=invocation_id,
             )
 
         history.add_message(tool_message)

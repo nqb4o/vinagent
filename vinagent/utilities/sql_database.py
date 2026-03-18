@@ -1,6 +1,6 @@
 """SQLAlchemy wrapper around a database.
 
-Reference from: 
+Reference from:
 https://python.langchain.com/api_reference/_modules/langchain_community/utilities/sql_database.html#SQLDatabase
 """
 
