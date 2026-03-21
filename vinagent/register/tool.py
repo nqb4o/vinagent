@@ -1042,7 +1042,7 @@ class ToolCall(BaseModel):
     tool_type: Literal["function", "module", "mcp", "agentskills"] = Field(
         default="function", description="Type of tool"
     )
-    tool_call_id: str = Field(default="", description="Tool calling ID")
+    tool_call_id: Optional[str] = Field(default="", description="Tool calling ID")
     is_runtime: bool = Field(
         default=False, description="Runtime value, is True if the tool_type is function"
     )
