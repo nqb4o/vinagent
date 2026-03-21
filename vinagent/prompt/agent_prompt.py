@@ -163,7 +163,8 @@ The `command` value depends on `tool_type`:
         content_value = tool_message.content or ""
         artifact_value = getattr(tool_message, "artifact", None)
 
-        import pandas as pd     
+        import pandas as pd
+
         if isinstance(artifact_value, pd.DataFrame):
             artifact_value = artifact_value.to_string()
         else:

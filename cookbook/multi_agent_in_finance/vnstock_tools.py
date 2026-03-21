@@ -43,7 +43,9 @@ def fetch_stock_data_vn(
     except Exception as e:
         error_msg = f"Error fetching data for {symbol}: {e}"
         print(error_msg)
-        return pd.DataFrame()  # Return empty DF instead of string to avoid downstream crashes
+        return (
+            pd.DataFrame()
+        )  # Return empty DF instead of string to avoid downstream crashes
 
 
 def visualize_stock_data_vn(
@@ -263,14 +265,20 @@ def calculate_stock_statistics(df: pd.DataFrame, symbol: str) -> dict:
 
     if isinstance(df, str):
         # If agent passes ANY string (e.g. placeholder) instead of a dataframe, fetch it manually
-        print(f"🔄 Auto-fetching data for {symbol} (reason: tool received placeholder string)...")
+        print(
+            f"🔄 Auto-fetching data for {symbol} (reason: tool received placeholder string)..."
+        )
         df = fetch_stock_data_vn(symbol)
 
     if not isinstance(df, pd.DataFrame) or df.empty:
         # Fallback: try one more time or provide a more detailed error
         if isinstance(df, pd.DataFrame) and df.empty:
-            raise ValueError(f"No data found for {symbol}. Stock might be delisted or symbol incorrect.")
-        raise ValueError(f"Invalid dataframe provided for {symbol}. Got type: {type(df)}")
+            raise ValueError(
+                f"No data found for {symbol}. Stock might be delisted or symbol incorrect."
+            )
+        raise ValueError(
+            f"Invalid dataframe provided for {symbol}. Got type: {type(df)}"
+        )
 
     # Ensure datetime
     df = df.copy()
@@ -332,6 +340,7 @@ def fetch_fundamental_ratios_vn(symbol: str) -> dict:
     """
     try:
         from vnstock import Vnstock
+
         stock = Vnstock().stock(symbol=symbol, source="VCI")
         df_ratio = stock.finance.ratio()
         if df_ratio is None or df_ratio.empty:
@@ -361,7 +370,9 @@ def fetch_fundamental_ratios_vn(symbol: str) -> dict:
 
         # Attempt to fetch from SSI if VCI is insufficient or N/A
         if not summary.get("pe") or summary.get("pe") == "N/A":
-            print(f"⚠️ VCI source missing PE for {symbol}, trying fallback SSI source...")
+            print(
+                f"⚠️ VCI source missing PE for {symbol}, trying fallback SSI source..."
+            )
             stock_ssi = Vnstock().stock(symbol=symbol, source="SSI")
             df_ratio_ssi = stock_ssi.finance.ratio()
             if df_ratio_ssi is not None and not df_ratio_ssi.empty:
@@ -369,7 +380,9 @@ def fetch_fundamental_ratios_vn(symbol: str) -> dict:
                 # SSI has different column names, we just map the critical ones
                 summary["pe"] = data_ssi.get("P/E", summary["pe"])
                 summary["pb"] = data_ssi.get("P/B", summary["pb"])
-                summary["dividend_yield"] = data_ssi.get("Tỷ suất cổ tức", summary["dividend_yield"])
+                summary["dividend_yield"] = data_ssi.get(
+                    "Tỷ suất cổ tức", summary["dividend_yield"]
+                )
                 summary["roe"] = data_ssi.get("ROE", summary["roe"])
                 summary["roa"] = data_ssi.get("ROA", summary["roa"])
 
